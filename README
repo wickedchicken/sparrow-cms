@@ -1,0 +1,6 @@
+sparrow is a simple web publishing system built on Scheme (specifically, Chicken Scheme). Chicken Scheme allows compilation of code to binary, enabling sparrow to (theoretically) be very quick.
+
+sparrow is Copyright 2008 Michael Stipicevic
+sparrow is released under the GNU Lesser General Public License (see COPYING and COPYING.LESSER for details)
+
+The author can be contacted at stipim >at< rpi ]dot[ edu, or mstipicevic >at< ieee [dot] org.
