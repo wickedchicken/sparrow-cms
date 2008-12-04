@@ -8,10 +8,24 @@
 (require-extension fastcgi)
 (require 'regex)
 
+
+(define read-config
+  (lambda (filename)
+    (when (file-exists? filename)
+      (call-with-input-file filename
+			    (lambda (port)
+			      (read-lines port))))))
+
+(define config
+  (read-config "sparrow-cfg"))
+
 (define conn-params
   (list
-    '(user . "user")
-    '(dbname . "pass") ) )
+    '((list-ref config 0) . "user")
+    '((list-ref config 1) . "pass")))
+
+(define spamtoken
+  (list-ref config 2))
 
 (define decode-sequence
   (lambda (i)
@@ -116,7 +130,7 @@
   (lambda (post)
     (let ((inputpass (get-var "pass" post)))
 	  (if inputpass
-	    (string-ci=? inputpass "thepassword")
+	    (string-ci=? inputpass spamtoken)
 	    #f))))
 
 (define scan-list
@@ -182,6 +196,8 @@
     (call-with-input-file file
 			  (lambda (port)
 			    (output-chars port out))))))
+
+
 
 
 (fcgi-dynamic-server-accept-loop
