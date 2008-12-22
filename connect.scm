@@ -19,6 +19,9 @@
 (define config
   (read-config "sparrow-cfg"))
 
+(define static
+  (read-config "static-list"))
+
 (define conn-params
   (list
     (cons 'user (list-ref config 0))
@@ -158,7 +161,7 @@
 			      (pg:query-for-each (format-post out)
 						 (string-concatenate (list "select * from posts where id = " value ";"))
 						 conn)
-			      (if (scan-list (list "about" "friends" "powered") (lambda (x) (string-ci=? value x)))
+			      (if (scan-list static (lambda (x) (string-ci=? value x)))
 				(dump-file (string-append value ".html") out))
 			      ))))
 
