@@ -21,8 +21,8 @@
 
 (define conn-params
   (list
-    '((list-ref config 0) . "user")
-    '((list-ref config 1) . "pass")))
+    (cons 'user (list-ref config 0))
+    (cons 'dbname (list-ref config 1))))
 
 (define spamtoken
   (list-ref config 2))
